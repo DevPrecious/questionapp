@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:qapp/controllers/AuthController.dart';
 import 'package:qapp/views/register.dart';
 import 'package:qapp/views/widgets/custom_button.dart';
 import 'package:qapp/views/widgets/custom_input.dart';
@@ -17,6 +18,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  final AuthController _authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +57,27 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 25,
                 ),
-                CustomButton(
-                  text: 'Login',
-                ),
+                Obx(() {
+                  return _authController.isLoading.value
+                      ? Center(
+                          child: Text(
+                            'Processing...',
+                            style: GoogleFonts.workSans(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        )
+                      : CustomButton(
+                          onPressed: () {
+                            _authController.LoginUser(
+                              email: _emailController.text.trim(),
+                              password: _passwordController.text.trim(),
+                            );
+                          },
+                          text: 'Login',
+                        );
+                }),
                 SizedBox(
                   height: 10,
                 ),

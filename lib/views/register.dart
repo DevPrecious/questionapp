@@ -72,21 +72,31 @@ class _RegisterPageState extends State<RegisterPage> {
                 SizedBox(
                   height: 25,
                 ),
-                _authController.isLoading.value
-                    ? Center(
-                        child: CircularProgressIndicator(color: Colors.black),
-                      )
-                    : CustomButton(
-                        onPressed: () {
-                          _authController.RegisterUser(
-                            email: _emailController.text,
-                            password: _passwordController.text,
-                            name: _nameController.text,
-                            username: _usernameController.text,
+                Obx(
+                  () {
+                    return _authController.isLoading.value
+                        ? Center(
+                            child: Text(
+                              'Creating Account...',
+                              style: GoogleFonts.workSans(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                        : CustomButton(
+                            onPressed: () {
+                              _authController.RegisterUser(
+                                email: _emailController.text.trim(),
+                                password: _passwordController.text.trim(),
+                                name: _nameController.text.trim(),
+                                username: _usernameController.text.trim(),
+                              );
+                            },
+                            text: 'Register',
                           );
-                        },
-                        text: 'Register',
-                      ),
+                  },
+                ),
                 SizedBox(
                   height: 10,
                 ),

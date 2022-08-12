@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qapp/constants/string_constant.dart';
-import 'package:qapp/views/home.dart';
+import 'package:qapp/views/feed.dart';
 import 'package:qapp/views/login.dart';
 import 'dart:io';
 import 'package:hive/hive.dart';
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Qapp',
       home: LoginPage(),
     );
   }
